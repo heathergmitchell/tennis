@@ -14,13 +14,13 @@ if __name__ == '__main__':
 		print("Congratulations! You won the coin toss and get to play first")
 		lineup.append("You")
 		lineup.append("Opponent")
+		counter = 0
 	else:
 		print(x)
 		print("Sorry! You lost the coin toss and your opponent will serve first")
 		lineup.append("Opponent")
 		lineup.append("You")
-
-	counter = float(coinToss)
+		counter = 1
 
 	#Probability of Player A winning a rally
 	#Player A is whoever won the coin toss
@@ -67,6 +67,8 @@ if __name__ == '__main__':
 			counter += 1
 			break
 		elif (scoreA == 3 and scoreB == 3):
+			print(lineup[0]+ " vs. "+ lineup[1])
+			print("Deuce")
 			break
 		print(rand)
 
@@ -78,7 +80,7 @@ if __name__ == '__main__':
 		deuceScoreB = 0
 
 		while(deuceScoreA != 2 or deuceScoreB != 2):
-			if(counter % 2 == 0):	#PlayerA serving
+			if(counter % 2 == 0):	#Player A serving
 				if(rand < probA or rand == probA):	#Player A won the point
 					deuceScoreA +=1
 					print(lineup[0] + " vs. " + lineup[1])
@@ -103,7 +105,7 @@ if __name__ == '__main__':
 
 			if(deuceScoreA == 2):
 				print(rand)
-				print(lineup[0] + "won first game")
+				print(lineup[0] + " won first game")
 				print("Ad vs. " + score[scoreB])
 				break
 			elif(deuceScoreB == 2):
