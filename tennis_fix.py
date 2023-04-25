@@ -2,6 +2,55 @@ import random
 import numpy
 from new import trythis
 
+def deuce():
+	scoreA = 3
+	scoreB = 3
+	deuceA = False #Player A wins deuce point-> Ad - 40
+	deuceB = False #Player B wins deuce point-> 40 - Ad
+	advA = False #Player A wins adv point-> 40-40 or Game
+	advB = False #Player B wins ad point-> 40-40 or Game
+	deuceEnd = False
+	point = random.randint(0, 100)
+
+        while(deuceEnd == False):
+                if(point <= 50):
+			advA = False
+			advB = False
+			deuceA = True
+			print("Player A wins!")
+			point = random.randint(0, 100)
+
+			if(point <= 50):
+				advA = True
+				print("Player A wins Ad*")
+
+			else:
+				advB = True
+				deuceA = False
+				print("Player B wins Ad*")
+
+		else:
+			advA = False
+			advB = False
+			deuceB = True
+			point = random.randint(0, 100)
+                        print("Player B wins :)")
+
+                        if(point <= 50):
+				advA = True
+                                deuceB = False
+                                print("Player A wins Ad@")
+                        else:
+                                advB = True
+                                print("Player B wins Ad@")
+		point = random.randint(0, 100)
+
+	if (deuceA == True and advA == True):
+		deuceEnd = True
+		scoreA += 1
+	elif(deuceB == True and advB == True):
+		deuceEnd = True
+		scoreB += 1
 
 if __name__ == '__main__':
 	print("Welcome to your tennis match! We'll get started with the coin toss to see which player goes first")
