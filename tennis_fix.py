@@ -1,5 +1,7 @@
 import random
 import numpy
+from new import trythis
+
 
 if __name__ == '__main__':
 	print("Welcome to your tennis match! We'll get started with the coin toss to see which player goes first")
@@ -35,45 +37,50 @@ if __name__ == '__main__':
 	sequence = max(scoreA,scoreB)
 	fortyall = ['Deuce', 'Ad-In', 'Ad-Out']
 
+	def serve():
+		print(lineup[0] + "serves")
+
 
 	while (sequence < 4):
 		print(point)
+		#serve()
 		if( scoreA ==3 and scoreB ==3):
-			while(deuceA != 2 or deuceB != 2):
-				if(counter % 2 == 0):   #Player A serving
-					if(point <= 50):	#Player A won the point
-						deuceA +=1
-						print(lineup[0] + " vs. " + lineup[1])
-						print("Advantage In")
-					else: #Player A lost point
-						deuceB += 1
-						print(lineup[0] + " vs. " + lineup[1])
-						print("Advantage Out")
-						if(deuceA != 0):
-							deuceA -=1
-				else:   #Player B serving
-					if(point > 50):      #Player B won point
-						deuceB += 1
-						print(lineup[0] + " vs. " + lineup[1])
-						print("Advantage In")
-					else:   #Player B lost point
-						deuceA +=1
-						print(lineup[0] + " vs. " +  lineup[1])
-						print("Advantage Out")
-						if (deuceB != 0):
-							deuceB -= 1
+			trythis.deuce()
+			#while(deuceA != 2 or deuceB != 2):
+			#	if(counter % 2 == 0):   #Player A serving
+			#		if(point <= 50):	#Player A won the point
+			#			deuceA +=1
+			#			print(lineup[0] + " vs. " + lineup[1])
+			#			print("Advantage In")
+			#		else: #Player A lost point
+			#			deuceB += 1
+			#			print(lineup[0] + " vs. " + lineup[1])
+			#			print("Advantage Out")
+						#if(deuceA != 0):
+						#	deuceA -=1
+			#	else:   #Player B serving
+			#		if(point > 50):      #Player B won point
+			#			deuceB += 1
+			#			print(lineup[0] + " vs. " + lineup[1])
+			#			print("Advantage In")
+			#		else:   #Player B lost point
+			#			deuceA +=1
+			#			print(lineup[0] + " vs. " +  lineup[1])
+			#			print("Advantage Out")
+						#if (deuceB != 0):
+						#	deuceB -= 1
 
-				if(deuceA == 2):
-					print(point)
-					print(lineup[0] + " won first game")
-					print("Ad vs. " + score[scoreB])
-				elif(deuceB == 2):
-					print(point)
-					print(lineup[1] + " won first game")
-					print(score[scoreA] + " vs. Ad")
+		#	if(deuceA == 2):
+		#		print(point)
+		#		print(lineup[0] + " won first game")
+		#		print("Ad vs. " + score[scoreB])
+		#	elif(deuceB == 2):
+		#		print(point)
+		#		print(lineup[1] + " won first game")
+		#		print(score[scoreA] + " vs. Ad")
 
-				point = random.randint(0,100)
-				print(point)
+		#	point = random.randint(0,100)
+		#	print(point)
 		elif(point <= 50):
 			print("Player A wins the point")
 			scoreA += 1
