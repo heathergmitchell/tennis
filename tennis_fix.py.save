@@ -1,6 +1,290 @@
 import random
 import numpy
-from service import serve, deuce, deucetry
+
+#Point scores within each game
+scoreA = 0
+scoreB = 0
+
+#Game scores
+gameScoreA = 0
+gameScoreB = 0
+
+#Determines set scores
+setScoreA = 0
+setscoreB = 0
+
+#Boolean determines who starts serving
+youStart = False
+
+#Keeps track of when the user is serving
+#If the User wins the coin toss, they begin and start serving Game 0
+#If the User loses, then they serve Game 1
+
+def tiebreaker():
+	global gameScoreA
+	global gameScoreB
+
+	#Tiebreaker point variables
+	a_point = 0
+	b_point = 0
+
+	#CHANGE when you determine who's serving
+	playerAStarts = False
+	playerBStarts = False
+
+	playerAServes = False
+	playerBServes = False
+
+	endTiebreaker = False
+
+	#Tracks points except the very first one to determine who's serving
+	a_counter = 0
+	b_counter = 0
+
+	starter = input("1 for Player A to start, 2 for Player B ")
+
+	if(int(starter) == 1):
+		playerAStarts = True
+
+	elif(int(starter) == 2):
+		playerBStarts = True
+
+	while(endTiebreaker == False):
+
+		#Beginning point
+		if(playerAStarts == True):
+			user = input("1 for Player A, 2 for Player B: ")
+
+			if(int(user) == 1):
+				a_point += 1
+				playerBServes = True
+				playerAServes = False
+
+				print("Player A vs. Player B")
+				print(str(a_point) + " - " + str(b_point))
+
+			elif(int(user) == 2):
+				b_point += 1
+				playerBServes = True
+				playerAStarts = False
+
+				print("Player A vs. Player B")
+				print(str(a_point) + " - " + str(b_point))
+
+		if(playerBStarts == True):
+                        user = input("1 for Player A, 2 for Player B: ")
+
+                        if(int(user) == 1):
+                                a_point += 1
+                                playerBServes = True
+                                playerAServes = False
+
+                                print("Player A vs. Player B")
+                                print(str(a_point) + " - " + str(b_point))
+
+                        elif(int(user) == 2):
+                                b_point += 1
+                                playerBServes = True
+                                playerAStarts = False
+
+                                print("Player A vs. Player B")
+                                print(str(a_point) + " - " + str(b_point))
+
+		#Player A is serving
+
+		while(playerAServes == True):
+			user = input("1 for Player A, 2 for Player B: ")
+			print("Player A serving!")
+
+			if(int(user) == 1):
+				a_point += 1
+				a_counter += 1
+			elif(int(user) == 2):
+				b_point += 1
+				a_counter += 1
+
+			if(a_counter %2 == 0):
+				playerAServes = False
+				playerBServes = True
+
+			print("Player A vs. Player B")
+			print(str(a_point) + " - " + str(b_point))
+
+			if((a_point >= 7) and (a_point - b_point >= 2)):
+				gameScoreA += 1
+				playerAServes = False
+				endTiebreaker = True
+
+			if((b_point >= 7) and (b_point - a_point >= 2)):
+				gameScoreB += 1
+				playerAServes = False
+				endTiebreaker = True
+		#Player B is serving
+		while(playerBServes == True):
+			user = input("1 for Player A, 2 for Player B: ")
+			print("Player B serving!")
+
+			if(int(user) == 1):
+				a_point += 1
+				b_counter += 1
+			elif(int(user) == 2):
+				b_point += 1
+				b_counter += 1
+
+			if(b_counter % 2 == 0):
+				playerAServes = True
+				playerBServes = False
+
+			print("Player A vs. Player B")
+			print(str(a_point) + " - " + str(b_point))
+
+			if((a_point >= 7) and (a_point - b_point >= 2)):
+				gameScoreA += 1
+				playerBServes = False
+				endTiebreaker = True
+			if((b_point >= 7) and (b_point - a_point >= 2)):
+				gameScoreB += 1
+				playerBServes = False
+				endTiebreaker = True
+
+
+def deuce():
+	global scoreA
+	global scoreB
+	deuceA = False #Player A wins deuce point-> Ad - 40
+	deuceB = False #Player B wins deuce point-> 40 - Ad
+	advA = False #Player A wins adv point-> 40-40 or Game
+	advB = False #Player B wins ad point-> 40-40 or Game
+	deuceEnd = False
+	point = random.randint(0, 100)
+
+	while(deuceEnd == False):
+		if(point <= 50):
+			advA = False
+			advB = False
+			deuceA = True
+			print("Player A wins!")
+			point = random.randint(0, 100)
+
+			if(point <= 50):
+				advA = True
+				print("Player A wins Ad*")
+
+			else:
+				advB = True
+				deuceA = False
+				print("Player B wins Ad*")
+
+		else:
+			advA = False
+			advB = False
+			deuceB = True
+			point = random.randint(0, 100)
+			print("Player B wins :)")
+
+			if(point <= 50):
+				advA = True
+				deuceB = False
+				print("Player A wins Ad@")
+			else:
+				advB = True
+				print("Player B wins Ad@")
+		point = random.randint(0, 100)
+
+		if (deuceA == True and advA == True):
+			scoreA += 1
+			deuceEnd = True
+		elif(deuceB == True and advB == True):
+			scoreB += 1
+			deuceEnd = True
+
+	deuceA = False
+	deuceB = False
+	advA = False
+	advB = False
+	deuceEnd = False
+
+def youServe():
+	point = random.randint(0, 100)
+
+	#Change this to be an input eventually
+	yourProb = 50
+
+	global scoreA
+	global scoreB
+
+	if(point <= yourProb):
+		scoreA += 1
+	else:
+		scoreB += 1
+
+def oppServe():
+	point = random.randint(0, 100)
+
+	#Change this to be an input eventually
+	oppProb = 50
+
+	global scoreA
+	global scoreB
+
+	if(point <= oppProb):
+		scoreB += 1
+	else:
+		scoreA += 1
+
+
+def game():
+
+	global scoreA
+	global scoreB
+
+	global gameScoreA
+	global gameScoreB
+
+	global counter
+	global youStart
+
+	point = random.randint(0, 100)
+
+	score = ['Love', '15', '30', '40', '40.']
+	sequence = max(scoreA, scoreB)
+
+	endGame = False
+
+	while(endGame == False):
+		print(point)
+
+		if(scoreA == 3 and scoreB == 3):
+			deuce()
+		else:
+			if(youStart == True and counter % 2 == 0):
+				youServe()
+			elif(youStart == True and counter % 2 != 0):
+				oppServe()
+			elif(youStart != True and counter % 2 == 0):
+				oppServe()
+			elif(youStart != True and counter % 2 != 0):
+				youServe()
+			print(lineup[0] + " vs. " + lineup[1])
+			print(score[scoreA] + " - " + score[scoreB])
+			point = random.randint(0, 100)
+
+		if(scoreA == 4):
+			gameScoreA += 1
+			print("Player A wins!")
+			endGame = True
+
+		elif(scoreB == 4):
+			gameScoreB += 1
+			print("Player B wins!")
+			endGame = True
+
+	endGame = False
+	scoreA = 0
+	scoreB = 0
+	counter = 1
+	print("Game score: Player A vs. Player B")
+	print(str(gameScoreA) + " - " + str(gameScoreB))
 
 
 if __name__ == '__main__':
@@ -11,64 +295,99 @@ if __name__ == '__main__':
 	print("Coin toss was: ", x)
 
 	lineup = []
+	global counter
 
 	if(int(coinToss) == x):
 		print(x)
 		print("Congratulations! You won the coin toss and get to play first")
 		lineup.append("You")
 		lineup.append("Opponent")
-		counter = 0
+		youStart = True
+
 	else:
 		print(x)
 		print("Sorry! You lost the coin toss and your opponent will serve first")
 		lineup.append("Opponent")
 		lineup.append("You")
-		counter = 1
+		youStart = False
+
+	counter = 0
 
 	point = random.randint(0,100)
 
-	scoreA = 0
-	scoreB = 0
-
-	deuceA = 0
-	deuceB = 0
-
-
-	score = ['Love', '15', '30', '40', '60']
-	sequence = max(scoreA,scoreB)
+#	score = ['Love', '15', '30', '40', '60']
+#	sequence = max(scoreA,scoreB)
 
 	fortyall = ['Deuce', 'Ad-In', 'Ad-Out']
 
 #insert loops for 6 games per set, 3 sets per game
 
-	while (sequence < 4):
-		print(point)
-		serve
+#	while (sequence < 4):
+#		print(point)
+#		userInput = input("1 for Player 1. 2 for Player 2 ")
+#
+#		if (scoreA == 3 and scoreB == 3):
+#			FortyAll.deuce()
+#		else:
+#			if(int(userInput) == 1):
+#				print("Player A wins the point")
+#				scoreA += 1
+#			elif(int(userInput) ==2):
+#				print("Player B gets the point")
+#				scoreB += 1
+#			print(lineup[0] + " vs. " + lineup[1])
+#			print(score[scoreA] + "-" + score[scoreB])
+#			point = random.randint(0,100)
 
-		if (scoreA == 3 and scoreB == 3):
-			deucetry
+#	sequence = max(scoreA, scoreB)
+#	print(sequence)
+#
+#	if (sequence == 4):
+#		print("The match is over")
+#	if (scoreA ==4):
+#		print("Player A wins")
+#	elif (scoreB == 4):
+#		print("Player B wins")
+	endSet = False
+
+	gameSequence = max(gameScoreA, gameScoreB)
+
+#while(endMatch == False):
+	while(endSet == False):
+		if (gameScoreA == 6 and gameScoreB == 6):
+			tiebreaker()
 		else:
-		
-			if(point <= 50):
-				print("Player A wins the point")
-				scoreA += 1
-			else:
-				print("Player B gets the point")
-				scoreB += 1
-			print(lineup[0] + " vs. " + lineup[1])
-			print(score[scoreA] + "-" + score[scoreB])
-			point = random.randint(0,100)
-		
+			game()
 
-	sequence = max(scoreA, scoreB)
-	print(sequence)
+		if((gameScoreA == 6) and (gameScoreA - gameScoreB >= 2)):
+			print("Player A vs. Player B")
+			print(str(gameScoreA) + " - " + str(gameScoreB))
+			setScoreA += 1
+			endSet = True
+		elif((gameScoreB == 6) and (gameScoreB - gameScoreA >= 2)):
+			print("Player A vs. Player B")
+			print(str(gameScoreA) + " - " + str(gameScoreB))
+			setScoreB += 1
+			endSet = True
+		elif(gameScoreA == 7 and gameScoreB == 5):
+			print("Player A vs. Player B")
+			print(str(gameScoreA) + " - " + str(gameScoreB))
+			setScoreA += 1
+			endSet = True
+		elif(gameScoreB == 7 and gameScoreB == 5):
+			print("Player A vs. Player B")
+			print(str(gameScoreA) + " - " + str(gameScoreB))
+			setScoreB += 1
+			endSet = True
+		elif(gameScoreA == 7 and gameScoreB == 6):
+			print("Player A vs. Player B")
+			print(str(gameScoreA) + " - " + str(gameScoreB))
+			setScoreA += 1
+			endSet = True
+		elif(gameScoreB == 7 and gamescoreA == 6):
+			print("PlayerA vs. Player B")
+			print(str(gameScoreA) + " - " + str(gameScoreB))
+			setScoreB += 1
+			endSet = True
 
-	if (sequence == 4):
-		print("The match is over")
-	if (scoreA ==4):
-		print("Player A wins")
-	elif (scoreB == 4):
-		print("Player B wins")
-	
-
-
+	endSet = False
