@@ -18,14 +18,11 @@ youStart = False
 counter = 0
 
 def youServe():
-	print("You are serving")
 	point = random.randint(0, 100)
 	global yourProb
 
 	global scoreYou
 	global scoreOpp
-
-	print(point)
 
 	if(point <= yourProb):
 		scoreYou += 1
@@ -33,14 +30,11 @@ def youServe():
 		scoreOpp += 1
 
 def oppServe():
-	print("Opponent is serving")
 	point = random.randint(0, 100)
 	global oppProb
 
 	global scoreYou
 	global scoreOpp
-
-	print(point)
 
 	if(point <= oppProb):
 		scoreOpp += 1
@@ -73,25 +67,20 @@ def game():
 				oppServe()
 			elif(youStart != True and counter % 2 != 0):
 				youServe()
-			print("You vs. Opponent")
-			print(score[scoreYou] + " - " + score[scoreOpp])
 
 		if(scoreYou == 4):
 			gameScoreYou += 1
-			print("You won!")
 			endGame = True
 		elif(scoreOpp == 4):
 			gameScoreOpp += 1
-			print("Opponent won")
 			endGame = True
 
+	print("You vs. Opponent")
+	print(str(gameScoreYou) + " - " + str(gameScoreOpp))
 	endGame = False
 	scoreYou = 0
 	scoreOpp = 0
 	counter += 1
-
-	print("Game score: You vs. Opponent")
-	print(str(gameScoreYou) + " - " + str(gameScoreOpp))
 
 def set():
 	global gameScoreYou
@@ -107,17 +96,13 @@ def set():
 		else:
 			game()
 
-		if((((gameScoreYou == 6) and (gameScoreYou - gameScoreOpp >= 2)) or (gameScoreYou == 7 and gameScoreOpp == 5) or (gameScoreYou == 7 and gameScoreOpp == 6))):
-			print("Set score:")
-			print("You vs. Opponent")
-			print(str(gameScoreYou) + " - " + str(gameScoreOpp))
+		if(((gameScoreYou >= 6) and (gameScoreYou - gameScoreOpp >= 2)) or (gameScoreYou == 7 and gameScoreOpp == 6)):
 			setScoreYou += 1
+			print("You won the set!")
 			endSet = True
-		elif(((gameScoreOpp == 6) and (gameScoreOpp - gameScoreYou >= 2)) or (gameScoreOpp == 7 and gameScoreYou == 5) or (gameScoreOpp == 6 and gameScoreYou == 5)):
-			print("Set score")
-			print("You vs. Opponent")
-			print(str(gameScoreYou) + " - " + str(gameScoreOpp))
+		elif(((gameScoreOpp >= 6) and (gameScoreOpp - gameScoreYou >= 2)) or (gameScoreOpp == 7 and gameScoreYou == 6)):
 			setScoreOpp += 1
+			print("Your Opponent won the set!")
 			endSet = True
 
 	endSet = False
@@ -142,59 +127,47 @@ def deuce():
 				advYou = False
 				advOpp = False
 				deuceYou = True
-				print("You won 40 All")
 				point = random.randint(0, 100)
 
 				if(point <= yourProb):
 					advYou = True
-					print("You won Ad-In")
 				else:
 					advOpp = True
 					deuceYou = False
-					print("Opponent won Ad-In")
 			else:
 				advYou = False
 				advOpp = False
 				deuceOpp = True
-				print("Opponent won 40 All")
 				point = random.randint(0, 100)
 
 				if(point <= yourProb):
 					advYou = True
 					deuceOpp = False
-					print("You won Ad-Out")
 				else:
 					advOpp = True
-					print("Opponent won Ad-Out")
 		elif((youStart == True and counter % 2 != 0) or (youStart == False and counter % 2 == 0)):
 			if(point <= oppProb):
 				advYou = False
 				advOpp = True
 				deuceOpp = True
-				print("Opponent won 40 all")
 				point = random.randint(0, 100)
 
 				if(point <= oppProb):
 					advOpp = True
-					print("Opponent won Ad-In")
 				else:
 					advYou = True
 					deuceOpp = False
-					print("You win Ad-In")
 			else:
 				advYou = False
 				advOpp = False
 				deuceYou = True
-				print("You won 40 All")
 				point = random.randint(0, 100)
 
 				if(point <= oppProb):
 					advOpp = True
 					deuceYou = False
-					print("Opponent won Ad-Out")
 				else:
 					advYou = True
-					print("You won Ad-Out")
 		point = random.randint(0, 100)
 
 		if(deuceYou == True and advYou == True):
@@ -306,6 +279,8 @@ def tiebreaker():
 				gameScoreOpp += 1
 				oServe = False
 				endTiebreaker = True
+	print("Tiebreaker score: " + str(y_point) + " - " + str(o_point))
+	print("Game score: " + str(gameScoreYou) + " - " + str(gameScoreOpp))
 
 if __name__ == '__main__':
 	print("Welcome to your tennis match! Let's begin with the coin toss")
